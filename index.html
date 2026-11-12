@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Finca | Caminatas Guiadas & Naturaleza en Costa Rica</title>
+  <meta name="description" content="Descubre los senderos, ríos y fauna silvestre de La Finca. Caminatas guiadas diurnas, nocturnas y experiencias gastronómicas en contacto con la naturaleza." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Fraunces"', 'Georgia', 'serif'],
+          },
+          colors: {
+            finca: {
+              cream: '#FAF9F5',
+              sand: '#F1EFE7',
+              forest: '#0B2B1E',
+              pine: '#13422E',
+              emerald: '#10B981',
+              lime: '#84CC16',
+              scarlet: '#FF5722',
+              amber: '#F59E0B'
+            }
+          },
+          boxShadow: {
+            'soft': '0 20px 40px -15px rgba(11, 43, 30, 0.08)',
+            'glow': '0 10px 30px -5px rgba(255, 87, 34, 0.45)',
+            'glow-green': '0 10px 30px -5px rgba(16, 185, 129, 0.35)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar & subtle utilities */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF9F5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #13422E;
+      border-radius: 9999px;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(11, 43, 30, 0.85) 0%, rgba(11, 43, 30, 0.55) 50%, rgba(11, 43, 30, 0.78) 100%);
+    }
+    .card-hover {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+    }
+  </style>
+</head>
+<body class="bg-finca-cream text-finca-forest font-sans antialiased selection:bg-finca-emerald selection:text-white">
+
+  <!-- ==================== HEADER / NAVBAR ==================== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-finca-forest/90 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Brand Logo -->
+        <a href="#inicio" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-finca-emerald to-finca-lime flex items-center justify-center text-finca-forest shadow-md group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m0-18C7.5 3 4 7 4 12c0 2.5 1.5 5 4 6.5M12 3c4.5 0 8 4 8 9 0 2.5-1.5 5-4 6.5" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-display text-2xl font-bold tracking-tight text-white block leading-none">La Finca</span>
+            <span class="text-[11px] uppercase tracking-widest text-finca-emerald font-semibold block mt-0.5" data-i18n="nav_tagline">Nature & Trails</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-white/85">
+          <a href="#recorrido" class="hover:text-finca-lime transition-colors" data-i18n="nav_details">El Recorrido</a>
+          <a href="#precios" class="hover:text-finca-lime transition-colors" data-i18n="nav_pricing">Tours y Precios</a>
+          <a href="#galeria" class="hover:text-finca-lime transition-colors" data-i18n="nav_gallery">Galería</a>
+          <a href="#reservar" class="hover:text-finca-lime transition-colors" data-i18n="nav_book">Reservar</a>
+        </nav>
+
+        <!-- Language Switcher + CTA -->
+        <div class="flex items-center gap-3">
+          <!-- Bilingual Toggle Button -->
+          <button
+            id="lang-toggle"
+            type="button"
+            aria-label="Cambiar idioma / Switch language"
+            class="relative inline-flex items-center bg-white/10 hover:bg-white/15 border border-white/20 rounded-full p-1 text-xs font-bold text-white transition-all cursor-pointer"
+          >
+            <span id="lang-es-pill" class="px-2.5 py-1 rounded-full bg-finca-emerald text-finca-forest transition-all">ES</span>
+            <span id="lang-en-pill" class="px-2.5 py-1 rounded-full text-white/80 transition-all">EN</span>
+          </button>
+
+          <!-- Header CTA (Desktop) -->
+          <a
+            href="#reservar"
+            class="hidden sm:inline-flex items-center gap-2 bg-finca-scarlet hover:bg-orange-600 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-glow transition-all transform hover:scale-105 active:scale-95"
+          >
+            <span data-i18n="cta_book_now">Reservar Ahora</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+
+          <!-- Mobile Hamburger -->
+          <button
+            id="mobile-menu-btn"
+            type="button"
+            aria-label="Abrir menú"
+            class="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 focus:outline-none"
+          >
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-finca-forest/95 backdrop-blur-xl border-b border-white/10 px-4 pt-3 pb-6 space-y-3">
+      <a href="#recorrido" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-base font-medium text-white/90 hover:bg-white/10" data-i18n="nav_details">El Recorrido</a>
+      <a href="#precios" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-base font-medium text-white/90 hover:bg-white/10" data-i18n="nav_pricing">Tours y Precios</a>
+      <a href="#galeria" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-base font-medium text-white/90 hover:bg-white/10" data-i18n="nav_gallery">Galería</a>
+      <a href="#reservar" class="mobile-nav-link block px-3 py-2.5 rounded-xl text-base font-medium text-white/90 hover:bg-white/10" data-i18n="nav_book">Reservar</a>
+      <div class="pt-2">
+        <a
+          href="#reservar"
+          class="mobile-nav-link w-full inline-flex items-center justify-center gap-2 bg-finca-scarlet text-white font-bold text-base px-5 py-3 rounded-full shadow-glow"
+        >
+          <span data-i18n="cta_book_now">Reservar Ahora</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 1. HERO SECTION ==================== -->
+  <section id="inicio" class="relative min-h-[92vh] pt-28 pb-20 flex items-center overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="./senderos/entrada.jpeg"
+        alt="Sendero de entrada a La Finca"
+        class="w-full h-full object-cover object-center scale-105 animate-[pulse_18s_ease-in-out_infinite]"
+      />
+      <div class="absolute inset-0 hero-gradient"></div>
+    </div>
+
+    <!-- Decorative Glowing Orbs -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-finca-emerald/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 bg-finca-scarlet/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Hero Text Column -->
+        <div class="lg:col-span-7 text-left space-y-6">
+          <div class="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 text-xs sm:text-sm font-semibold text-finca-lime">
+            <span class="w-2 h-2 rounded-full bg-finca-lime animate-ping"></span>
+            <span data-i18n="hero_badge">Nuevos Tours de Caminatas Guiadas • Costa Rica</span>
+          </div>
+
+          <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.08]">
+            <span data-i18n="hero_title">Bienvenido a La Finca</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-white/85 max-w-2xl leading-relaxed font-normal" data-i18n="hero_subtitle">
+            Explora senderos privados de bosque tropical, ríos de aguas cristalinas y una extraordinaria biodiversidad de aves, anfibios y mamíferos en su hábitat natural.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a
+              href="#reservar"
+              class="inline-flex items-center justify-center gap-3 bg-finca-scarlet hover:bg-orange-600 text-white font-extrabold text-base sm:text-lg px-8 py-4 rounded-full shadow-glow transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <span data-i18n="cta_book_now">Reservar Ahora</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+
+            <a
+              href="#galeria"
+              class="inline-flex items-center justify-center gap-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 text-white font-semibold text-base px-7 py-4 rounded-full transition-all"
+            >
+              <svg class="w-5 h-5 text-finca-lime" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span data-i18n="hero_secondary_cta">Ver Fauna y Senderos</span>
+            </a>
+          </div>
+
+          <!-- Quick Highlights Pill Bar -->
+          <div class="pt-6 grid grid-cols-3 gap-3 sm:gap-6 max-w-lg border-t border-white/15 text-white">
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold text-finca-lime">90–120</p>
+              <p class="text-xs sm:text-sm text-white/75" data-i18n="hero_stat_duration">Minutos de recorrido</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold text-finca-emerald" data-i18n="hero_stat_level_val">Fácil</p>
+              <p class="text-xs sm:text-sm text-white/75" data-i18n="hero_stat_level_lbl">Nivel de dificultad</p>
+            </div>
+            <div>
+              <p class="text-2xl sm:text-3xl font-extrabold text-finca-amber">Máx. 10</p>
+              <p class="text-xs sm:text-sm text-white/75" data-i18n="hero_stat_group">Personas por grupo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Collage Column (Desktop / Tablet) -->
+        <div class="lg:col-span-5 hidden sm:grid grid-cols-2 gap-4 relative">
+          <div class="space-y-4">
+            <div class="rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl h-56 relative group">
+              <img src="./Animales/lapa%20roja.jpg" alt="Lapa Roja en La Finca" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
+                <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-finca-scarlet"></span>
+                  <span data-i18n="hero_card_macaw">Lapa Roja</span>
+                </span>
+              </div>
+            </div>
+            <div class="rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl h-64 relative group">
+              <img src="./senderos/rioagua.jpeg" alt="Río de La Finca" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
+                <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-finca-emerald"></span>
+                  <span data-i18n="hero_card_river">Río Cristalino</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl h-64 relative group">
+              <img src="./Animales/ranaojosrojos.jpg" alt="Rana de Ojos Rojos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
+                <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-finca-lime"></span>
+                  <span data-i18n="hero_card_frog">Rana Ojos Rojos</span>
+                </span>
+              </div>
+            </div>
+            <div class="rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl h-56 relative group">
+              <img src="./Animales/perezoso.jpg" alt="Perezoso en La Finca" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
+                <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-finca-amber"></span>
+                  <span data-i18n="hero_card_sloth">Perezoso</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2. DETALLES DEL RECORRIDO ==================== -->
+  <section id="recorrido" class="py-20 sm:py-24 bg-finca-cream relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-finca-emerald bg-finca-emerald/10 px-3.5 py-1.5 rounded-full" data-i18n="details_badge">
+          Información de la Experiencia
+        </span>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold text-finca-forest tracking-tight" data-i18n="details_title">
+          Detalles del Recorrido
+        </h2>
+        <p class="text-base sm:text-lg text-finca-forest/70" data-i18n="details_subtitle">
+          Una caminata inmersiva diseñada para conectar con la naturaleza a un ritmo relajado, ideal para familias, fotógrafos y amantes de la vida silvestre.
+        </p>
+      </div>
+
+      <!-- Primary Key Specs Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        
+        <!-- Card 1: Duración -->
+        <div class="bg-white rounded-3xl p-8 border border-finca-forest/10 shadow-soft card-hover flex items-start gap-5">
+          <div class="w-14 h-14 rounded-2xl bg-finca-emerald/15 text-finca-emerald flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-finca-forest/50" data-i18n="spec_duration_label">Duración</span>
+            <h3 class="text-2xl font-extrabold text-finca-forest mt-1" data-i18n="spec_duration_val">90 a 120 minutos</h3>
+            <p class="text-sm text-finca-forest/70 mt-2 leading-relaxed" data-i18n="spec_duration_desc">
+              Tiempo ideal para recorrer los senderos del bosque, visitar el río y observar animales con calma.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Dificultad -->
+        <div class="bg-white rounded-3xl p-8 border border-finca-forest/10 shadow-soft card-hover flex items-start gap-5">
+          <div class="w-14 h-14 rounded-2xl bg-finca-lime/20 text-finca-pine flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-finca-forest/50" data-i18n="spec_difficulty_label">Dificultad</span>
+            <h3 class="text-2xl font-extrabold text-finca-forest mt-1" data-i18n="spec_difficulty_val">Fácil</h3>
+            <p class="text-sm text-finca-forest/70 mt-2 leading-relaxed" data-i18n="spec_difficulty_desc">
+              Senderos seguros y bien demarcados, aptos para principiantes, niños y adultos mayores activos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3: Grupos Reducidos -->
+        <div class="bg-white rounded-3xl p-8 border border-finca-forest/10 shadow-soft card-hover flex items-start gap-5">
+          <div class="w-14 h-14 rounded-2xl bg-finca-scarlet/15 text-finca-scarlet flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-finca-forest/50" data-i18n="spec_group_label">Tamaño de Grupo</span>
+            <h3 class="text-2xl font-extrabold text-finca-forest mt-1" data-i18n="spec_group_val">Máximo 10 personas</h3>
+            <p class="text-sm text-finca-forest/70 mt-2 leading-relaxed" data-i18n="spec_group_desc">
+              Grupos pequeños para garantizar silencio en el bosque, atención personalizada y mejores avistamientos.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Secondary Info: Qué Incluye & Qué Llevar -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Qué Incluye -->
+        <div class="bg-finca-sand/70 rounded-3xl p-7 sm:p-8 border border-finca-forest/10">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-full bg-finca-emerald text-white flex items-center justify-center font-bold text-sm">✓</span>
+            <h4 class="text-lg font-bold text-finca-forest" data-i18n="includes_title">¿Qué incluye tu visita?</h4>
+          </div>
+          <ul class="space-y-2.5 text-sm sm:text-base text-finca-forest/80">
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-emerald"></span>
+              <span data-i18n="includes_item1">Guía local experto en flora y fauna de La Finca.</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-emerald"></span>
+              <span data-i18n="includes_item2">Acceso exclusivo a los senderos privados y ribera del río.</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-emerald"></span>
+              <span data-i18n="includes_item3">Linternas especializadas en la modalidad de caminata nocturna.</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-emerald"></span>
+              <span data-i18n="includes_item4">Almuerzo o cena tradicional (exclusivo en Paquete Premium).</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Qué Llevar -->
+        <div class="bg-finca-sand/70 rounded-3xl p-7 sm:p-8 border border-finca-forest/10">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-full bg-finca-scarlet text-white flex items-center justify-center font-bold text-sm">!</span>
+            <h4 class="text-lg font-bold text-finca-forest" data-i18n="bring_title">Recomendaciones: ¿Qué llevar?</h4>
+          </div>
+          <ul class="space-y-2.5 text-sm sm:text-base text-finca-forest/80">
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-scarlet"></span>
+              <span data-i18n="bring_item1">Zapatos cerrados cómodos o calzado de senderismo (antideslizante).</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-scarlet"></span>
+              <span data-i18n="bring_item2">Ropa fresca y ligera, más capa impermeable según la época.</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-scarlet"></span>
+              <span data-i18n="bring_item3">Repelente de insectos biodegradable y protector solar.</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-finca-scarlet"></span>
+              <span data-i18n="bring_item4">Botella de agua reutilizable y cámara fotográfica.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 3. OFERTA DEL TOUR Y PRECIOS ==================== -->
+  <section id="precios" class="py-20 sm:py-24 bg-finca-forest text-white relative overflow-hidden">
+    <!-- Subtle background accents -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-finca-emerald/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-finca-scarlet/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-finca-lime bg-white/10 px-3.5 py-1.5 rounded-full" data-i18n="pricing_badge">
+          Tarifas Transparentes
+        </span>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold tracking-tight" data-i18n="pricing_title">
+          Elige tu Aventura en La Finca
+        </h2>
+        <p class="text-base sm:text-lg text-white/75" data-i18n="pricing_subtitle">
+          Precios por persona en Colones Costarricenses (₡) y su equivalente aproximado en Dólares ($ USD). Selecciona un paquete para pre-cargar tu reserva.
+        </p>
+      </div>
+
+      <!-- 3 Pricing Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- 1. Caminata de Día -->
+        <div class="bg-white/5 backdrop-blur-md border border-white/15 rounded-3xl p-8 flex flex-col justify-between card-hover">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider bg-amber-400/20 text-amber-300 px-3 py-1 rounded-full">
+                ☀️ <span data-i18n="pkg_day_tag">Diurno • 6:00 AM – 5:30 PM</span>
+              </span>
+            </div>
+
+            <h3 class="font-display text-2xl sm:text-3xl font-bold text-white" data-i18n="pkg_day_title">Caminata de Día</h3>
+            <p class="text-sm text-white/75 mt-2 leading-relaxed" data-i18n="pkg_day_desc">
+              Recorre el bosque bañando de luz natural. Ideal para avistar lapas rojas, tucancillos, tangaras, perezosos e iguanas junto al río.
+            </p>
+
+            <!-- Price Box -->
+            <div class="my-7 pt-6 border-t border-white/10">
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl sm:text-5xl font-extrabold text-white">₡20,000</span>
+                <span class="text-sm text-white/65 font-medium" data-i18n="per_person">/ persona</span>
+              </div>
+              <p class="text-sm font-semibold text-finca-lime mt-1" data-i18n="pkg_day_usd">Aprox. $40 USD por persona</p>
+            </div>
+
+            <ul class="space-y-3 text-sm text-white/85 mb-8">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-emerald shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_day_feat1">Duración de 90 a 120 minutos</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-emerald shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_day_feat2">5 horarios diurnos disponibles</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-emerald shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_day_feat3">Visita a los senderos altos y al río</span>
+              </li>
+            </ul>
+          </div>
+
+          <button
+            type="button"
+            onclick="selectPackageAndScroll('day')"
+            class="w-full py-3.5 px-6 rounded-full bg-white/15 hover:bg-finca-emerald hover:text-finca-forest text-white font-bold text-sm transition-all cursor-pointer"
+            data-i18n="pkg_btn_select"
+          >
+            Elegir Caminata de Día
+          </button>
+        </div>
+
+        <!-- 2. Caminata Nocturna -->
+        <div class="bg-white/5 backdrop-blur-md border border-white/15 rounded-3xl p-8 flex flex-col justify-between card-hover">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider bg-indigo-400/20 text-indigo-200 px-3 py-1 rounded-full">
+                🌙 <span data-i18n="pkg_night_tag">Nocturno • 6:00 PM – 8:00 PM</span>
+              </span>
+            </div>
+
+            <h3 class="font-display text-2xl sm:text-3xl font-bold text-white" data-i18n="pkg_night_title">Caminata Nocturna</h3>
+            <p class="text-sm text-white/75 mt-2 leading-relaxed" data-i18n="pkg_night_desc">
+              Cuando cae el sol, el bosque cobra vida. Descubre a la icónica rana de ojos rojos, insectos hoja seca y sonidos mágicos de la noche.
+            </p>
+
+            <!-- Price Box -->
+            <div class="my-7 pt-6 border-t border-white/10">
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl sm:text-5xl font-extrabold text-white">₡25,000</span>
+                <span class="text-sm text-white/65 font-medium" data-i18n="per_person">/ persona</span>
+              </div>
+              <p class="text-sm font-semibold text-finca-lime mt-1" data-i18n="pkg_night_usd">Aprox. $50 USD por persona</p>
+            </div>
+
+            <ul class="space-y-3 text-sm text-white/85 mb-8">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-emerald shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_night_feat1">Salida especial 6:00 PM - 8:00 PM</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-emerald shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_night_feat2">Observación de anfibios e insectos</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-emerald shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_night_feat3">Guía especializado en fauna nocturna</span>
+              </li>
+            </ul>
+          </div>
+
+          <button
+            type="button"
+            onclick="selectPackageAndScroll('night')"
+            class="w-full py-3.5 px-6 rounded-full bg-white/15 hover:bg-finca-emerald hover:text-finca-forest text-white font-bold text-sm transition-all cursor-pointer"
+            data-i18n="pkg_btn_select_night"
+          >
+            Elegir Caminata Nocturna
+          </button>
+        </div>
+
+        <!-- 3. Paquete Premium (Featured) -->
+        <div class="bg-gradient-to-b from-finca-pine to-finca-forest border-2 border-finca-scarlet rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative card-hover">
+          <!-- Popular Ribbon -->
+          <div class="absolute -top-4 right-6 bg-finca-scarlet text-white text-xs font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-glow" data-i18n="pkg_prem_ribbon">
+            Experiencia Completa
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider bg-finca-emerald/20 text-finca-lime px-3 py-1 rounded-full">
+                🍽️ <span data-i18n="pkg_prem_tag">Caminata + Gastronomía</span>
+              </span>
+            </div>
+
+            <h3 class="font-display text-2xl sm:text-3xl font-bold text-white" data-i18n="pkg_prem_title">Paquete Premium</h3>
+            <p class="text-sm text-white/80 mt-2 leading-relaxed" data-i18n="pkg_prem_desc">
+              La experiencia insignia de La Finca: disfruta de tu caminata guiada (diurna o nocturna) acompañada de un delicioso Almuerzo o Cena.
+            </p>
+
+            <!-- Price Box -->
+            <div class="my-7 pt-6 border-t border-white/15">
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl sm:text-5xl font-extrabold text-finca-lime">₡32,000</span>
+                <span class="text-sm text-white/75 font-medium" data-i18n="per_person">/ persona</span>
+              </div>
+              <p class="text-sm font-semibold text-white/90 mt-1" data-i18n="pkg_prem_usd">Aprox. $64 USD por persona</p>
+            </div>
+
+            <ul class="space-y-3 text-sm text-white/90 mb-8">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-lime shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_prem_feat1">Caminata guiada en cualquier horario</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-lime shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_prem_feat2">Almuerzo o Cena incluida según tu hora</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-finca-lime shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span data-i18n="pkg_prem_feat3">El mejor valor para vivir La Finca al 100%</span>
+              </li>
+            </ul>
+          </div>
+
+          <button
+            type="button"
+            onclick="selectPackageAndScroll('premium')"
+            class="w-full py-3.5 px-6 rounded-full bg-finca-scarlet hover:bg-orange-600 text-white font-extrabold text-sm shadow-glow transition-all cursor-pointer"
+            data-i18n="pkg_btn_select_prem"
+          >
+            Elegir Paquete Premium
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. GALERÍA DE IMÁGENES (CARRUSEL INTERACTIVO) ==================== -->
+  <section id="galeria" class="py-20 sm:py-24 bg-finca-cream">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header & Filter Tabs -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+        <div class="space-y-2">
+          <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-finca-emerald bg-finca-emerald/10 px-3.5 py-1.5 rounded-full" data-i18n="gallery_badge">
+            Biodiversidad & Paisajes Reales
+          </span>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold text-finca-forest tracking-tight" data-i18n="gallery_title">
+            Galería de La Finca
+          </h2>
+          <p class="text-base text-finca-forest/70 max-w-xl" data-i18n="gallery_subtitle">
+            Fotografías capturadas directamente en nuestros senderos. Desliza para explorar la fauna y los paisajes que te esperan.
+          </p>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="inline-flex bg-finca-sand p-1.5 rounded-2xl border border-finca-forest/10 self-start">
+          <button
+            type="button"
+            onclick="setGalleryCategory('all')"
+            id="tab-all"
+            class="gallery-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-finca-forest text-white shadow transition-all"
+            data-i18n="tab_all"
+          >
+            Todos (15)
+          </button>
+          <button
+            type="button"
+            onclick="setGalleryCategory('fauna')"
+            id="tab-fauna"
+            class="gallery-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-finca-forest/70 hover:text-finca-forest transition-all"
+            data-i18n="tab_fauna"
+          >
+            Fauna (10)
+          </button>
+          <button
+            type="button"
+            onclick="setGalleryCategory('senderos')"
+            id="tab-senderos"
+            class="gallery-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-finca-forest/70 hover:text-finca-forest transition-all"
+            data-i18n="tab_trails"
+          >
+            Senderos y Río (5)
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Carousel Container -->
+      <div class="relative rounded-3xl overflow-hidden bg-finca-forest shadow-2xl border border-finca-forest/15 select-none">
+        
+        <!-- Viewport -->
+        <div id="carousel-viewport" class="relative h-[420px] sm:h-[540px] lg:h-[600px] w-full overflow-hidden flex items-center justify-center bg-black">
+          <!-- Blurred ambient backdrop for vertical/portrait shots so no detail is cropped -->
+          <img
+            id="carousel-bg-blur"
+            src="./Animales/lapa%20roja.jpg"
+            alt=""
+            aria-hidden="true"
+            class="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-45 transition-all duration-500"
+          />
+
+          <!-- Main Slide Image -->
+          <img
+            id="carousel-main-img"
+            src="./Animales/lapa%20roja.jpg"
+            alt="Lapa Roja"
+            class="relative z-10 max-h-full max-w-full w-auto h-full object-contain transition-all duration-500"
+          />
+
+          <!-- Bottom Gradient Overlay for Captions -->
+          <div class="absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 sm:p-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2.5">
+                <span id="carousel-cat-badge" class="px-3 py-0.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-finca-emerald text-finca-forest">
+                  Fauna
+                </span>
+                <span id="carousel-counter" class="text-xs font-mono font-semibold text-white/80 bg-white/10 px-2.5 py-0.5 rounded-full">
+                  1 / 15
+                </span>
+              </div>
+              <h3 id="carousel-title" class="font-display text-2xl sm:text-3xl font-bold text-white">
+                Lapa Roja
+              </h3>
+              <p id="carousel-desc" class="text-sm sm:text-base text-white/80 max-w-2xl">
+                Avistamiento frecuente en las copas de los almendros de La Finca.
+              </p>
+            </div>
+
+            <!-- Play/Pause Autoplay Toggle -->
+            <button
+              id="carousel-autoplay-btn"
+              type="button"
+              onclick="toggleAutoplay()"
+              class="self-start sm:self-end inline-flex items-center gap-2 text-xs font-semibold text-white/85 bg-white/15 hover:bg-white/25 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/20 transition-all cursor-pointer"
+            >
+              <span id="autoplay-dot" class="w-2 h-2 rounded-full bg-finca-lime"></span>
+              <span id="autoplay-label" data-i18n="carousel_pause">Pausar presentación</span>
+            </button>
+          </div>
+
+          <!-- Prev Button -->
+          <button
+            type="button"
+            onclick="prevSlide()"
+            aria-label="Anterior / Previous"
+            class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/45 hover:bg-finca-scarlet text-white border border-white/25 backdrop-blur-md flex items-center justify-center transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <!-- Next Button -->
+          <button
+            type="button"
+            onclick="nextSlide()"
+            aria-label="Siguiente / Next"
+            class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/45 hover:bg-finca-scarlet text-white border border-white/25 backdrop-blur-md flex items-center justify-center transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Thumbnail Strip -->
+        <div class="bg-finca-forest/95 border-t border-white/10 p-3 sm:p-4">
+          <div id="carousel-thumbs" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. SECCIÓN DE RESERVA (FORMULARIO A WHATSAPP) ==================== -->
+  <section id="reservar" class="py-20 sm:py-24 bg-finca-sand/80 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white rounded-3xl shadow-soft border border-finca-forest/10 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+        
+        <!-- Left Info Panel -->
+        <div class="lg:col-span-5 bg-finca-forest text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-finca-emerald/20 rounded-full blur-2xl pointer-events-none"></div>
+
+          <div class="space-y-6 relative z-10">
+            <span class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-finca-lime bg-white/10 px-3.5 py-1.5 rounded-full">
+              <span class="w-2 h-2 rounded-full bg-finca-lime"></span>
+              <span data-i18n="form_badge">Reserva Directa e Inmediata</span>
+            </span>
+
+            <h2 class="font-display text-3xl sm:text-4xl font-bold leading-tight" data-i18n="form_title">
+              Reserva tu Caminata por WhatsApp
+            </h2>
+
+            <p class="text-sm sm:text-base text-white/80 leading-relaxed" data-i18n="form_subtitle">
+              Completa los datos de tu visita. Al presionar el botón, se abrirá un chat directo con nuestro equipo en el +506 8881 0953 con tu solicitud lista para confirmar.
+            </p>
+
+            <!-- Live Price Summary Card -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/15 space-y-3 mt-4">
+              <div class="flex items-center justify-between text-xs uppercase tracking-wider text-white/70 font-bold">
+                <span data-i18n="summary_title">Resumen Estimado</span>
+                <span id="summary-pkg-pill" class="text-finca-lime">Caminata de Día</span>
+              </div>
+              <div class="flex items-baseline justify-between pt-2 border-t border-white/10">
+                <div>
+                  <span id="summary-total-crc" class="text-3xl font-extrabold text-white">₡40,000</span>
+                  <span id="summary-total-usd" class="block text-xs font-semibold text-finca-lime mt-0.5">Aprox. $80 USD en total</span>
+                </div>
+                <div class="text-right">
+                  <span id="summary-guests-count" class="text-sm font-bold text-white/90">2 personas</span>
+                  <span id="summary-meal-note" class="block text-[11px] text-white/65">Solo caminata guiada</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct Contact Footer inside Panel -->
+          <div class="pt-8 mt-8 border-t border-white/15 relative z-10">
+            <p class="text-xs uppercase tracking-wider text-white/60 font-semibold" data-i18n="form_direct_label">Atención directa WhatsApp</p>
+            <p class="text-lg font-bold text-white mt-0.5 flex items-center gap-2">
+              <span>+506 8881 0953</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Form Column -->
+        <div class="lg:col-span-7 p-8 sm:p-10">
+          <form id="booking-form" class="space-y-6" novalidate>
+            
+            <!-- Nombre del visitante -->
+            <div>
+              <label for="guest-name" class="block text-sm font-bold text-finca-forest mb-2" data-i18n="label_name">
+                Tu Nombre Completo
+              </label>
+              <input
+                type="text"
+                id="guest-name"
+                required
+                placeholder="Ej. María Fernández / John Smith"
+                data-i18n-placeholder="placeholder_name"
+                class="w-full rounded-2xl border border-finca-forest/20 bg-finca-cream px-4 py-3.5 text-finca-forest font-medium focus:outline-none focus:ring-2 focus:ring-finca-emerald focus:border-transparent transition-all"
+              />
+            </div>
+
+            <!-- a) Paquete deseado -->
+            <div>
+              <label for="package-select" class="block text-sm font-bold text-finca-forest mb-2" data-i18n="label_package">
+                a) Paquete Deseado
+              </label>
+              <select
+                id="package-select"
+                required
+                class="w-full rounded-2xl border border-finca-forest/20 bg-finca-cream px-4 py-3.5 text-finca-forest font-semibold focus:outline-none focus:ring-2 focus:ring-finca-emerald focus:border-transparent transition-all cursor-pointer"
+              >
+                <option value="day" id="opt-pkg-day">☀️ Caminata de Día — ₡20,000 (~$40 USD) / persona</option>
+                <option value="night" id="opt-pkg-night">🌙 Caminata Nocturna — ₡25,000 (~$50 USD) / persona</option>
+                <option value="premium" id="opt-pkg-premium">🍽️ Paquete Premium (Caminata + Almuerzo/Cena) — ₡32,000 (~$64 USD) / persona</option>
+              </select>
+            </div>
+
+            <!-- Grid for b) Fecha & d) Cantidad de personas -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <!-- b) Fecha de la reserva -->
+              <div>
+                <label for="booking-date" class="block text-sm font-bold text-finca-forest mb-2" data-i18n="label_date">
+                  b) Fecha de la Reserva
+                </label>
+                <input
+                  type="date"
+                  id="booking-date"
+                  required
+                  class="w-full rounded-2xl border border-finca-forest/20 bg-finca-cream px-4 py-3.5 text-finca-forest font-semibold focus:outline-none focus:ring-2 focus:ring-finca-emerald focus:border-transparent transition-all cursor-pointer"
+                />
+              </div>
+
+              <!-- d) Cantidad de personas (máx 10) -->
+              <div>
+                <label for="guests-input" class="block text-sm font-bold text-finca-forest mb-2" data-i18n="label_guests">
+                  d) Cantidad de Personas (Máx. 10)
+                </label>
+                <div class="flex items-center rounded-2xl border border-finca-forest/20 bg-finca-cream overflow-hidden">
+                  <button
+                    type="button"
+                    onclick="adjustGuests(-1)"
+                    aria-label="Restar persona"
+                    class="px-4 py-3.5 text-lg font-extrabold text-finca-forest hover:bg-finca-forest/10 transition-colors cursor-pointer"
+                  >−</button>
+                  <input
+                    type="number"
+                    id="guests-input"
+                    min="1"
+                    max="10"
+                    value="2"
+                    required
+                    class="w-full text-center bg-transparent font-extrabold text-finca-forest text-base focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onclick="adjustGuests(1)"
+                    aria-label="Sumar persona"
+                    class="px-4 py-3.5 text-lg font-extrabold text-finca-forest hover:bg-finca-forest/10 transition-colors cursor-pointer"
+                  >+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- c) Hora (Dropdown con las 6 opciones) -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="time-select" class="block text-sm font-bold text-finca-forest" data-i18n="label_time">
+                  c) Horario del Recorrido
+                </label>
+                <span id="time-helper-badge" class="text-xs font-semibold text-finca-emerald">
+                  Horarios diurnos disponibles
+                </span>
+              </div>
+              <select
+                id="time-select"
+                required
+                class="w-full rounded-2xl border border-finca-forest/20 bg-finca-cream px-4 py-3.5 text-finca-forest font-semibold focus:outline-none focus:ring-2 focus:ring-finca-emerald focus:border-transparent transition-all cursor-pointer"
+              >
+                <option value="6:00 AM - 8:00 AM" data-slot="day">6:00 AM - 8:00 AM</option>
+                <option value="8:30 AM - 10:30 AM" data-slot="day" selected>8:30 AM - 10:30 AM</option>
+                <option value="11:00 AM - 1:00 PM" data-slot="day">11:00 AM - 1:00 PM</option>
+                <option value="1:30 PM - 3:00 PM" data-slot="day">1:30 PM - 3:00 PM</option>
+                <option value="3:30 PM - 5:30 PM" data-slot="day">3:30 PM - 5:30 PM</option>
+                <option value="6:00 PM - 8:00 PM" data-slot="night">6:00 PM - 8:00 PM</option>
+              </select>
+            </div>
+
+            <!-- Validation alert box -->
+            <div id="form-error" class="hidden rounded-2xl bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm font-medium"></div>
+
+            <!-- Submit Button to WhatsApp -->
+            <button
+              type="submit"
+              class="w-full inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-extrabold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-glow-green transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            >
+              <!-- WhatsApp SVG Icon -->
+              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.124.556 4.119 1.529 5.847l-1.529 5.583 5.717-1.499c1.682.888 3.597 1.394 5.631 1.394 6.627 0 12-5.373 12-12 0-6.627-5.373-12-11.348-11.325z"/>
+              </svg>
+              <span data-i18n="btn_submit_whatsapp">Enviar Reserva por WhatsApp</span>
+            </button>
+
+            <p class="text-center text-xs text-finca-forest/60" data-i18n="form_footer_note">
+              No se realiza ningún cobro en línea. Confirmaremos disponibilidad directamente contigo por WhatsApp.
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-finca-forest text-white/80 py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-finca-emerald to-finca-lime flex items-center justify-center text-finca-forest font-bold">
+          LF
+        </div>
+        <div>
+          <p class="font-display text-lg font-bold text-white leading-none">La Finca</p>
+          <p class="text-xs text-white/60 mt-0.5" data-i18n="footer_sub">Tours de Caminatas Guiadas • Costa Rica</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm">
+        <a href="#inicio" class="hover:text-finca-lime transition-colors" data-i18n="nav_home">Inicio</a>
+        <a href="#recorrido" class="hover:text-finca-lime transition-colors" data-i18n="nav_details">El Recorrido</a>
+        <a href="#precios" class="hover:text-finca-lime transition-colors" data-i18n="nav_pricing">Precios</a>
+        <a href="#galeria" class="hover:text-finca-lime transition-colors" data-i18n="nav_gallery">Galería</a>
+        <a href="#reservar" class="hover:text-finca-lime transition-colors" data-i18n="nav_book">Reservar</a>
+      </div>
+
+      <p class="text-xs text-white/50">
+        © <span id="year-span">2026</span> La Finca. <span data-i18n="footer_rights">Todos los derechos reservados.</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT (BILINGUAL + CAROUSEL + WHATSAPP) ==================== -->
+  <script>
+    // =========================================================================
+    // 1. BILINGUAL DICTIONARY (ES / EN)
+    // =========================================================================
+    const translations = {
+      es: {
+        nav_tagline: "Naturaleza y Senderos",
+        nav_home: "Inicio",
+        nav_details: "El Recorrido",
+        nav_pricing: "Tours y Precios",
+        nav_gallery: "Galería",
+        nav_book: "Reservar",
+        cta_book_now: "Reservar Ahora",
+        hero_badge: "Nuevos Tours de Caminatas Guiadas • Costa Rica",
+        hero_title: "Bienvenido a La Finca",
+        hero_subtitle: "Explora senderos privados de bosque tropical, ríos de aguas cristalinas y una extraordinaria biodiversidad de aves, anfibios y mamíferos en su hábitat natural.",
+        hero_secondary_cta: "Ver Fauna y Senderos",
+        hero_stat_duration: "Minutos de recorrido",
+        hero_stat_level_val: "Fácil",
+        hero_stat_level_lbl: "Nivel de dificultad",
+        hero_stat_group: "Personas por grupo",
+        hero_card_macaw: "Lapa Roja",
+        hero_card_river: "Río Cristalino",
+        hero_card_frog: "Rana Ojos Rojos",
+        hero_card_sloth: "Perezoso",
+
+        details_badge: "Información de la Experiencia",
+        details_title: "Detalles del Recorrido",
+        details_subtitle: "Una caminata inmersiva diseñada para conectar con la naturaleza a un ritmo relajado, ideal para familias, fotógrafos y amantes de la vida silvestre.",
+        spec_duration_label: "Duración",
+        spec_duration_val: "90 a 120 minutos",
+        spec_duration_desc: "Tiempo ideal para recorrer los senderos del bosque, visitar el río y observar animales con calma.",
+        spec_difficulty_label: "Dificultad",
+        spec_difficulty_val: "Fácil",
+        spec_difficulty_desc: "Senderos seguros y bien demarcados, aptos para principiantes, niños y adultos mayores activos.",
+        spec_group_label: "Tamaño de Grupo",
+        spec_group_val: "Máximo 10 personas",
+        spec_group_desc: "Grupos pequeños para garantizar silencio en el bosque, atención personalizada y mejores avistamientos.",
+
+        includes_title: "¿Qué incluye tu visita?",
+        includes_item1: "Guía local experto en flora y fauna de La Finca.",
+        includes_item2: "Acceso exclusivo a los senderos privados y ribera del río.",
+        includes_item3: "Linternas especializadas en la modalidad de caminata nocturna.",
+        includes_item4: "Almuerzo o cena tradicional (exclusivo en Paquete Premium).",
+
+        bring_title: "Recomendaciones: ¿Qué llevar?",
+        bring_item1: "Zapatos cerrados cómodos o calzado de senderismo (antideslizante).",
+        bring_item2: "Ropa fresca y ligera, más capa impermeable según la época.",
+        bring_item3: "Repelente de insectos biodegradable y protector solar.",
+        bring_item4: "Botella de agua reutilizable y cámara fotográfica.",
+
+        pricing_badge: "Tarifas Transparentes",
+        pricing_title: "Elige tu Aventura en La Finca",
+        pricing_subtitle: "Precios por persona en Colones Costarricenses (₡) y su equivalente aproximado en Dólares ($ USD). Selecciona un paquete para pre-cargar tu reserva.",
+        per_person: "/ persona",
+
+        pkg_day_tag: "Diurno • 6:00 AM – 5:30 PM",
+        pkg_day_title: "Caminata de Día",
+        pkg_day_desc: "Recorre el bosque bañado de luz natural. Ideal para avistar lapas rojas, tucancillos, tangaras, perezosos e iguanas junto al río.",
+        pkg_day_usd: "Aprox. $40 USD por persona",
+        pkg_day_feat1: "Duración de 90 a 120 minutos",
+        pkg_day_feat2: "5 horarios diurnos disponibles",
+        pkg_day_feat3: "Visita a los senderos altos y al río",
+        pkg_btn_select: "Elegir Caminata de Día",
+
+        pkg_night_tag: "Nocturno • 6:00 PM – 8:00 PM",
+        pkg_night_title: "Caminata Nocturna",
+        pkg_night_desc: "Cuando cae el sol, el bosque cobra vida. Descubre a la icónica rana de ojos rojos, insectos hoja seca y sonidos mágicos de la noche.",
+        pkg_night_usd: "Aprox. $50 USD por persona",
+        pkg_night_feat1: "Salida especial 6:00 PM - 8:00 PM",
+        pkg_night_feat2: "Observación de anfibios e insectos",
+        pkg_night_feat3: "Guía especializado en fauna nocturna",
+        pkg_btn_select_night: "Elegir Caminata Nocturna",
+
+        pkg_prem_ribbon: "Experiencia Completa",
+        pkg_prem_tag: "Caminata + Gastronomía",
+        pkg_prem_title: "Paquete Premium",
+        pkg_prem_desc: "La experiencia insignia de La Finca: disfruta de tu caminata guiada (diurna o nocturna) acompañada de un delicioso Almuerzo o Cena.",
+        pkg_prem_usd: "Aprox. $64 USD por persona",
+        pkg_prem_feat1: "Caminata guiada en cualquier horario",
+        pkg_prem_feat2: "Almuerzo o Cena incluida según tu hora",
+        pkg_prem_feat3: "El mejor valor para vivir La Finca al 100%",
+        pkg_btn_select_prem: "Elegir Paquete Premium",
+
+        gallery_badge: "Biodiversidad & Paisajes Reales",
+        gallery_title: "Galería de La Finca",
+        gallery_subtitle: "Fotografías capturadas directamente en nuestros senderos. Desliza para explorar la fauna y los paisajes que te esperan.",
+        tab_all: "Todos (15)",
+        tab_fauna: "Fauna (10)",
+        tab_trails: "Senderos y Río (5)",
+        carousel_pause: "Pausar presentación",
+        carousel_play: "Reanudar presentación",
+        cat_fauna: "Fauna Silvestre",
+        cat_senderos: "Senderos y Río",
+
+        form_badge: "Reserva Directa e Inmediata",
+        form_title: "Reserva tu Caminata por WhatsApp",
+        form_subtitle: "Completa los datos de tu visita. Al presionar el botón, se abrirá un chat directo con nuestro equipo en el +506 8881 0953 con tu solicitud lista para confirmar.",
+        summary_title: "Resumen Estimado",
+        form_direct_label: "Atención directa WhatsApp",
+        label_name: "Tu Nombre Completo",
+        placeholder_name: "Ej. María Fernández",
+        label_package: "a) Paquete Deseado",
+        label_date: "b) Fecha de la Reserva",
+        label_guests: "d) Cantidad de Personas (Máx. 10)",
+        label_time: "c) Horario del Recorrido",
+        btn_submit_whatsapp: "Enviar Reserva por WhatsApp",
+        form_footer_note: "No se realiza ningún cobro en línea. Confirmaremos disponibilidad directamente contigo por WhatsApp.",
+        footer_sub: "Tours de Caminatas Guiadas • Costa Rica",
+        footer_rights: "Todos los derechos reservados.",
+
+        opt_pkg_day: "☀️ Caminata de Día — ₡20,000 (~$40 USD) / persona",
+        opt_pkg_night: "🌙 Caminata Nocturna — ₡25,000 (~$50 USD) / persona",
+        opt_pkg_premium: "🍽️ Paquete Premium (Caminata + Almuerzo/Cena) — ₡32,000 (~$64 USD) / persona",
+
+        helper_day: "Mostrando 5 horarios diurnos (6:00 AM – 5:30 PM)",
+        helper_night: "Horario nocturno exclusivo (6:00 PM – 8:00 PM)",
+        helper_premium: "Todos los horarios habilitados (Incluye Almuerzo o Cena)",
+
+        meal_note_walk_only: "Incluye caminata guiada",
+        meal_note_lunch: "Incluye Caminata Diurna + Almuerzo",
+        meal_note_dinner: "Incluye Caminata Nocturna + Cena",
+        person_singular: "persona",
+        person_plural: "personas",
+        error_missing: "Por favor completa tu nombre, selecciona una fecha válida y verifica que la cantidad de personas sea entre 1 y 10."
+      },
+      en: {
+        nav_tagline: "Nature & Trails",
+        nav_home: "Home",
+        nav_details: "Tour Details",
+        nav_pricing: "Tours & Pricing",
+        nav_gallery: "Gallery",
+        nav_book: "Book Now",
+        cta_book_now: "Book Now",
+        hero_badge: "New Guided Walking Tours • Costa Rica",
+        hero_title: "Welcome to La Finca",
+        hero_subtitle: "Explore private rainforest trails, crystal-clear rivers, and extraordinary biodiversity of birds, amphibians, and mammals in their natural habitat.",
+        hero_secondary_cta: "Explore Wildlife & Trails",
+        hero_stat_duration: "Minutes tour duration",
+        hero_stat_level_val: "Easy",
+        hero_stat_level_lbl: "Difficulty level",
+        hero_stat_group: "Guests per group",
+        hero_card_macaw: "Scarlet Macaw",
+        hero_card_river: "Crystal River",
+        hero_card_frog: "Red-Eyed Tree Frog",
+        hero_card_sloth: "Three-Toed Sloth",
+
+        details_badge: "Experience Information",
+        details_title: "Guided Walk Details",
+        details_subtitle: "An immersive walk designed to connect with nature at a relaxed pace—ideal for families, photographers, and wildlife lovers.",
+        spec_duration_label: "Duration",
+        spec_duration_val: "90 to 120 minutes",
+        spec_duration_desc: "Plenty of time to explore the forest trails, visit the river, and spot wildlife at an unhurried pace.",
+        spec_difficulty_label: "Difficulty",
+        spec_difficulty_val: "Easy",
+        spec_difficulty_desc: "Safe, well-maintained trails suitable for beginners, children, and active seniors.",
+        spec_group_label: "Group Size",
+        spec_group_val: "Max 10 guests",
+        spec_group_desc: "Small groups to keep the forest quiet, provide personalized attention, and maximize wildlife sightings.",
+
+        includes_title: "What's Included?",
+        includes_item1: "Expert local naturalist guide from La Finca.",
+        includes_item2: "Exclusive access to private rainforest trails and riverbank.",
+        includes_item3: "Specialized flashlights for the Night Walk experience.",
+        includes_item4: "Traditional Lunch or Dinner (exclusive to the Premium Package).",
+
+        bring_title: "What to Bring?",
+        bring_item1: "Closed-toe walking shoes or non-slip hiking footwear.",
+        bring_item2: "Light, breathable clothing plus a light rain jacket.",
+        bring_item3: "Eco-friendly insect repellent and sunscreen.",
+        bring_item4: "Reusable water bottle and camera.",
+
+        pricing_badge: "Transparent Rates",
+        pricing_title: "Choose Your Adventure at La Finca",
+        pricing_subtitle: "Prices per person in Costa Rican Colones (₡) and approximate US Dollars ($ USD). Select a package to pre-fill your booking.",
+        per_person: "/ person",
+
+        pkg_day_tag: "Daytime • 6:00 AM – 5:30 PM",
+        pkg_day_title: "Day Walk",
+        pkg_day_desc: "Stroll through sunlit rainforest trails. Ideal for spotting scarlet macaws, toucanets, tanagers, sloths, and iguanas by the river.",
+        pkg_day_usd: "Approx. $40 USD per person",
+        pkg_day_feat1: "90 to 120 minutes guided walk",
+        pkg_day_feat2: "5 daytime time slots available",
+        pkg_day_feat3: "Visit upper forest trails & crystal river",
+        pkg_btn_select: "Select Day Walk",
+
+        pkg_night_tag: "Nocturnal • 6:00 PM – 8:00 PM",
+        pkg_night_title: "Night Walk",
+        pkg_night_desc: "When the sun sets, the rainforest awakens. Discover the iconic red-eyed tree frog, dead-leaf mantises, and nocturnal wildlife.",
+        pkg_night_usd: "Approx. $50 USD per person",
+        pkg_night_feat1: "Special departure 6:00 PM - 8:00 PM",
+        pkg_night_feat2: "Spot nocturnal frogs & camouflaged insects",
+        pkg_night_feat3: "Specialized night-walk naturalist guide",
+        pkg_btn_select_night: "Select Night Walk",
+
+        pkg_prem_ribbon: "Best Value",
+        pkg_prem_tag: "Guided Walk + Dining",
+        pkg_prem_title: "Premium Package",
+        pkg_prem_desc: "La Finca's signature experience: enjoy your guided walk (day or night) paired with a delicious traditional Lunch or Dinner.",
+        pkg_prem_usd: "Approx. $64 USD per person",
+        pkg_prem_feat1: "Guided walk in any available time slot",
+        pkg_prem_feat2: "Includes Lunch or Dinner based on your time",
+        pkg_prem_feat3: "The complete farm-to-table & nature experience",
+        pkg_btn_select_prem: "Select Premium Package",
+
+        gallery_badge: "Real Wildlife & Landscapes",
+        gallery_title: "La Finca Photo Gallery",
+        gallery_subtitle: "Photos captured directly on our property. Slide through to explore the wildlife and trails waiting for you.",
+        tab_all: "All (15)",
+        tab_fauna: "Wildlife (10)",
+        tab_trails: "Trails & River (5)",
+        carousel_pause: "Pause slideshow",
+        carousel_play: "Resume slideshow",
+        cat_fauna: "Wildlife",
+        cat_senderos: "Trails & River",
+
+        form_badge: "Direct & Instant Booking",
+        form_title: "Book Your Walk via WhatsApp",
+        form_subtitle: "Fill in your visit details below. Clicking submit will open a direct WhatsApp chat (+506 8881 0953) with your formatted booking request.",
+        summary_title: "Estimated Summary",
+        form_direct_label: "Direct WhatsApp Support",
+        label_name: "Your Full Name",
+        placeholder_name: "e.g. John Smith",
+        label_package: "a) Desired Package",
+        label_date: "b) Booking Date",
+        label_guests: "d) Number of Guests (Max 10)",
+        label_time: "c) Tour Time Slot",
+        btn_submit_whatsapp: "Send Booking via WhatsApp",
+        form_footer_note: "No online payment required now. We will confirm availability directly with you via WhatsApp.",
+        footer_sub: "Guided Walking Tours • Costa Rica",
+        footer_rights: "All rights reserved.",
+
+        opt_pkg_day: "☀️ Day Walk — ₡20,000 (~$40 USD) / person",
+        opt_pkg_night: "🌙 Night Walk — ₡25,000 (~$50 USD) / person",
+        opt_pkg_premium: "🍽️ Premium Package (Walk + Lunch/Dinner) — ₡32,000 (~$64 USD) / person",
+
+        helper_day: "Showing 5 daytime slots (6:00 AM – 5:30 PM)",
+        helper_night: "Exclusive night slot (6:00 PM – 8:00 PM)",
+        helper_premium: "All slots enabled (Includes Lunch or Dinner)",
+
+        meal_note_walk_only: "Includes guided walk",
+        meal_note_lunch: "Includes Day Walk + Lunch",
+        meal_note_dinner: "Includes Night Walk + Dinner",
+        person_singular: "guest",
+        person_plural: "guests",
+        error_missing: "Please enter your name, pick a valid date, and make sure the number of guests is between 1 and 10."
+      }
+    };
+
+    // =========================================================================
+    // 2. GALLERY ITEMS (ALL 15 ATTACHED PHOTOS)
+    // =========================================================================
+    const galleryItems = [
+      {
+        src: "./Animales/lapa%20roja.jpg",
+        category: "fauna",
+        title_es: "Lapa Roja (Ara macao)",
+        title_en: "Scarlet Macaw (Ara macao)",
+        desc_es: "Sus vibrantes plumas rojas, amarillas y azules engalanan las copas de los árboles en La Finca.",
+        desc_en: "Its vibrant red, yellow, and blue plumage lights up the treetops across La Finca."
+      },
+      {
+        src: "./Animales/ranaojosrojos.jpg",
+        category: "fauna",
+        title_es: "Rana de Ojos Rojos (Agalychnis callidryas)",
+        title_en: "Red-Eyed Tree Frog (Agalychnis callidryas)",
+        desc_es: "La estrella indiscutible de nuestra Caminata Nocturna, activa entre el follaje húmedo al anochecer.",
+        desc_en: "The undisputed star of our Night Walk, active among the rainforest leaves after dusk."
+      },
+      {
+        src: "./Animales/perezoso.jpg",
+        category: "fauna",
+        title_es: "Perezoso de Tres Dedos (Bradypus variegatus)",
+        title_en: "Three-Toed Sloth (Bradypus variegatus)",
+        desc_es: "Descansando plácidamente en el dosel del bosque; un favorito de grandes y pequeños.",
+        desc_en: "Resting peacefully in the forest canopy—a favorite sighting for visitors of all ages."
+      },
+      {
+        src: "./senderos/entrada.jpeg",
+        category: "senderos",
+        title_es: "Entrada al Bosque de La Finca",
+        title_en: "La Finca Forest Trail Entrance",
+        desc_es: "Un túnel natural de vegetación tropical te da la bienvenida al iniciar el recorrido.",
+        desc_en: "A natural tunnel of lush tropical foliage welcomes you at the start of the trail."
+      },
+      {
+        src: "./Animales/tucancillo%20collarejo.jpg",
+        category: "fauna",
+        title_es: "Tucancillo Collarejo (Pteroglossus torquatus)",
+        title_en: "Collared Aracari (Pteroglossus torquatus)",
+        desc_es: "Visitante asiduo de nuestros árboles frutales durante las caminatas de la mañana y la tarde.",
+        desc_en: "A frequent visitor to our fruit trees during morning and afternoon walks."
+      },
+      {
+        src: "./senderos/rioagua.jpeg",
+        category: "senderos",
+        title_es: "Aguas Cristalinas del Río",
+        title_en: "Crystal-Clear River Waters",
+        desc_es: "El sonido relajante del agua corriendo entre piedras volcánicas acompaña nuestra ruta.",
+        desc_en: "The soothing sound of fresh river water flowing over smooth stones accompanies our walk."
+      },
+      {
+        src: "./Animales/bluejeans.jpg",
+        category: "fauna",
+        title_es: "Rana Dardo 'Blue Jeans' (Oophaga pumilio)",
+        title_en: "Strawberry Poison Dart Frog 'Blue Jeans'",
+        desc_es: "Diminuta joya del bosque tropical, famosa por su color rojo intenso y patas azul eléctrico.",
+        desc_en: "A tiny jewel of the rainforest floor, famous for its bright red body and blue legs."
+      },
+      {
+        src: "./Animales/mantishojaseca.jpg",
+        category: "fauna",
+        title_es: "Mantis Hoja Seca",
+        title_en: "Dead-Leaf Praying Mantis",
+        desc_es: "Maestra del camuflaje que imita a la perfección una hoja seca del bosque.",
+        desc_en: "A master of camouflage that flawlessly mimics a dried rainforest leaf."
+      },
+      {
+        src: "./senderos/sendero%20arriba.jpeg",
+        category: "senderos",
+        title_es: "Sendero Alto del Bosque",
+        title_en: "Upper Rainforest Trail",
+        desc_es: "Caminos amplios, sombreados y de dificultad fácil rodeados de árboles centenarios.",
+        desc_en: "Wide, shaded, easy-grade paths surrounded by towering rainforest trees."
+      },
+      {
+        src: "./Animales/tangara%20rojinegra.png",
+        category: "fauna",
+        title_es: "Tangara Rojinegra y Yigüirro",
+        title_en: "Crimson-Collared Tanager & Clay-Colored Thrush",
+        desc_es: "El contraste carmesí de la tangara junto al Ave Nacional de Costa Rica.",
+        desc_en: "The striking crimson plumage of the tanager alongside Costa Rica's national bird."
+      },
+      {
+        src: "./Animales/iguana.png",
+        category: "fauna",
+        title_es: "Iguana Verde (Iguana iguana)",
+        title_en: "Green Iguana (Iguana iguana)",
+        desc_es: "Tomando el sol sobre los troncos cercanos al río durante las horas cálidas del día.",
+        desc_en: "Basking on tree trunks near the river during the warm hours of the day."
+      },
+      {
+        src: "./senderos/caminoalrio.jpeg",
+        category: "senderos",
+        title_es: "Camino hacia el Río",
+        title_en: "Path to the River",
+        desc_es: "Transición escénica entre claros soleados y la espesura de la montaña.",
+        desc_en: "A scenic transition between sunlit clearings and dense mountain forest."
+      },
+      {
+        src: "./Animales/ranahojarasca.png",
+        category: "fauna",
+        title_es: "Rana de Hojarasca (Craugastor)",
+        title_en: "Leaf-Litter Frog (Craugastor)",
+        desc_es: "Con la ayuda de nuestro guía podrás descubrir especies mimetizadas en el suelo del sendero.",
+        desc_en: "With our guide's trained eye, you'll spot camouflaged species right along the trail floor."
+      },
+      {
+        src: "./senderos/rio.jpeg",
+        category: "senderos",
+        title_es: "Cauce del Río y Lianas",
+        title_en: "Riverbed & Hanging Vines",
+        desc_es: "Un rincón fresco bajo la sombra de lianas y árboles ribereños.",
+        desc_en: "A cool sanctuary beneath hanging vines and gallery forest trees."
+      },
+      {
+        src: "./Animales/toro.jpg",
+        category: "fauna",
+        title_es: "Vida Rural en La Finca",
+        title_en: "Pastoral Life at La Finca",
+        desc_es: "Tradición ganadera sostenible que convive en armonía con las áreas de conservación.",
+        desc_en: "Traditional countryside heritage living in harmony with protected forest areas."
+      }
+    ];
+
+    // =========================================================================
+    // 3. STATE & INITIALIZATION
+    // =========================================================================
+    let currentLang = localStorage.getItem('lafinca_lang') || 'es';
+    let currentCategory = 'all';
+    let filteredGallery = [...galleryItems];
+    let currentSlideIndex = 0;
+    let autoplayInterval = null;
+    let isAutoplaying = true;
+
+    const PACKAGE_PRICES = {
+      day: { crc: 20000, usd: 40, name_es: "Caminata de Día", name_en: "Day Walk" },
+      night: { crc: 25000, usd: 50, name_es: "Caminata Nocturna", name_en: "Night Walk" },
+      premium: { crc: 32000, usd: 64, name_es: "Paquete Premium (Caminata + Comida)", name_en: "Premium Package (Walk + Meal)" }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set current year
+      document.getElementById('year-span').textContent = new Date().getFullYear();
+
+      // Set minimum date to today on date picker
+      const dateInput = document.getElementById('booking-date');
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const todayStr = `${yyyy}-${mm}-${dd}`;
+      dateInput.min = todayStr;
+      dateInput.value = todayStr;
+
+      // Initialize Language
+      applyLanguage(currentLang);
+
+      // Initialize Carousel
+      renderThumbnails();
+      updateCarouselSlide();
+      startAutoplay();
+
+      // Add touch swipe support on carousel viewport
+      const viewport = document.getElementById('carousel-viewport');
+      let touchStartX = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      viewport.addEventListener('touchend', (e) => {
+        const diff = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diff) > 45) {
+          diff > 0 ? prevSlide() : nextSlide();
+        }
+      }, { passive: true });
+
+      // Language Toggle Listener
+      document.getElementById('lang-toggle').addEventListener('click', () => {
+        const nextLang = currentLang === 'es' ? 'en' : 'es';
+        applyLanguage(nextLang);
+      });
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      mobileBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden', !isHidden);
+        iconOpen.classList.toggle('hidden', isHidden);
+        iconClose.classList.toggle('hidden', !isHidden);
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+
+      // Form Listeners
+      document.getElementById('package-select').addEventListener('change', () => {
+        syncTimeSlotsWithPackage();
+        updatePriceSummary();
+      });
+      document.getElementById('time-select').addEventListener('change', updatePriceSummary);
+      document.getElementById('guests-input').addEventListener('input', () => {
+        const input = document.getElementById('guests-input');
+        let val = parseInt(input.value, 10);
+        if (val > 10) input.value = 10;
+        if (val < 1 && input.value !== '') input.value = 1;
+        updatePriceSummary();
+      });
+
+      syncTimeSlotsWithPackage();
+      updatePriceSummary();
+
+      // WhatsApp Form Submission
+      document.getElementById('booking-form').addEventListener('submit', handleWhatsAppSubmit);
+    });
+
+    // =========================================================================
+    // 4. LANGUAGE SWITCHER LOGIC
+    // =========================================================================
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('lafinca_lang', lang);
+      document.documentElement.lang = lang;
+
+      const dict = translations[lang];
+
+      // Update toggle pill highlight
+      const esPill = document.getElementById('lang-es-pill');
+      const enPill = document.getElementById('lang-en-pill');
+      if (lang === 'es') {
+        esPill.className = 'px-2.5 py-1 rounded-full bg-finca-emerald text-finca-forest transition-all';
+        enPill.className = 'px-2.5 py-1 rounded-full text-white/80 transition-all';
+      } else {
+        enPill.className = 'px-2.5 py-1 rounded-full bg-finca-emerald text-finca-forest transition-all';
+        esPill.className = 'px-2.5 py-1 rounded-full text-white/80 transition-all';
+      }
+
+      // Translate all [data-i18n] elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+
+      // Translate placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) {
+          el.setAttribute('placeholder', dict[key]);
+        }
+      });
+
+      // Translate package dropdown options
+      document.getElementById('opt-pkg-day').textContent = dict.opt_pkg_day;
+      document.getElementById('opt-pkg-night').textContent = dict.opt_pkg_night;
+      document.getElementById('opt-pkg-premium').textContent = dict.opt_pkg_premium;
+
+      // Update autoplay button text
+      document.getElementById('autoplay-label').textContent = isAutoplaying ? dict.carousel_pause : dict.carousel_play;
+
+      // Refresh carousel caption & form summary in active language
+      updateCarouselSlide();
+      syncTimeSlotsWithPackage();
+      updatePriceSummary();
+    }
+
+    // =========================================================================
+    // 5. GALLERY CAROUSEL LOGIC
+    // =========================================================================
+    function setGalleryCategory(cat) {
+      currentCategory = cat;
+      filteredGallery = cat === 'all'
+        ? [...galleryItems]
+        : galleryItems.filter(item => item.category === cat);
+      currentSlideIndex = 0;
+
+      // Update active tab styling
+      ['all', 'fauna', 'senderos'].forEach(tabKey => {
+        const btn = document.getElementById(`tab-${tabKey}`);
+        if (tabKey === cat) {
+          btn.className = 'gallery-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-finca-forest text-white shadow transition-all';
+        } else {
+          btn.className = 'gallery-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-finca-forest/70 hover:text-finca-forest transition-all';
+        }
+      });
+
+      renderThumbnails();
+      updateCarouselSlide();
+    }
+
+    function renderThumbnails() {
+      const container = document.getElementById('carousel-thumbs');
+      container.innerHTML = '';
+      filteredGallery.forEach((item, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.onclick = () => goToSlide(index);
+        btn.className = `relative shrink-0 w-16 h-12 sm:w-20 sm:h-14 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+          index === currentSlideIndex
+            ? 'border-finca-scarlet scale-105 opacity-100'
+            : 'border-transparent opacity-55 hover:opacity-90'
+        }`;
+        btn.innerHTML = `<img src="${item.src}" alt="" loading="lazy" class="w-full h-full object-cover" />`;
+        container.appendChild(btn);
+      });
+    }
+
+    function updateCarouselSlide() {
+      const item = filteredGallery[currentSlideIndex];
+      if (!item) return;
+
+      const dict = translations[currentLang];
+      const mainImg = document.getElementById('carousel-main-img');
+      const bgBlur = document.getElementById('carousel-bg-blur');
+      const titleEl = document.getElementById('carousel-title');
+      const descEl = document.getElementById('carousel-desc');
+      const catBadge = document.getElementById('carousel-cat-badge');
+      const counterEl = document.getElementById('carousel-counter');
+
+      mainImg.src = item.src;
+      mainImg.alt = currentLang === 'es' ? item.title_es : item.title_en;
+      bgBlur.src = item.src;
+
+      titleEl.textContent = currentLang === 'es' ? item.title_es : item.title_en;
+      descEl.textContent = currentLang === 'es' ? item.desc_es : item.desc_en;
+      catBadge.textContent = item.category === 'fauna' ? dict.cat_fauna : dict.cat_senderos;
+      counterEl.textContent = `${currentSlideIndex + 1} / ${filteredGallery.length}`;
+
+      // Highlight active thumbnail
+      const thumbButtons = document.getElementById('carousel-thumbs').children;
+      Array.from(thumbButtons).forEach((btn, idx) => {
+        if (idx === currentSlideIndex) {
+          btn.className = 'relative shrink-0 w-16 h-12 sm:w-20 sm:h-14 rounded-xl overflow-hidden border-2 transition-all cursor-pointer border-finca-scarlet scale-105 opacity-100';
+          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+          btn.className = 'relative shrink-0 w-16 h-12 sm:w-20 sm:h-14 rounded-xl overflow-hidden border-2 transition-all cursor-pointer border-transparent opacity-55 hover:opacity-90';
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex + 1) % filteredGallery.length;
+      updateCarouselSlide();
+    }
+
+    function prevSlide() {
+      currentSlideIndex = (currentSlideIndex - 1 + filteredGallery.length) % filteredGallery.length;
+      updateCarouselSlide();
+    }
+
+    function goToSlide(index) {
+      currentSlideIndex = index;
+      updateCarouselSlide();
+    }
+
+    function startAutoplay() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(() => {
+        if (isAutoplaying) nextSlide();
+      }, 4800);
+    }
+
+    function toggleAutoplay() {
+      isAutoplaying = !isAutoplaying;
+      const dict = translations[currentLang];
+      const dot = document.getElementById('autoplay-dot');
+      const label = document.getElementById('autoplay-label');
+
+      dot.className = isAutoplaying
+        ? 'w-2 h-2 rounded-full bg-finca-lime'
+        : 'w-2 h-2 rounded-full bg-amber-400';
+      label.textContent = isAutoplaying ? dict.carousel_pause : dict.carousel_play;
+    }
+
+    // =========================================================================
+    // 6. SMART PACKAGE + SCHEDULE + PRICE SUMMARY LOGIC
+    // =========================================================================
+    function selectPackageAndScroll(pkgKey) {
+      const pkgSelect = document.getElementById('package-select');
+      pkgSelect.value = pkgKey;
+      syncTimeSlotsWithPackage();
+      updatePriceSummary();
+      document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function adjustGuests(delta) {
+      const input = document.getElementById('guests-input');
+      let current = parseInt(input.value, 10) || 1;
+      let next = Math.min(10, Math.max(1, current + delta));
+      input.value = next;
+      updatePriceSummary();
+    }
+
+    function syncTimeSlotsWithPackage() {
+      const pkg = document.getElementById('package-select').value;
+      const timeSelect = document.getElementById('time-select');
+      const helperBadge = document.getElementById('time-helper-badge');
+      const dict = translations[currentLang];
+
+      Array.from(timeSelect.options).forEach(opt => {
+        const slotType = opt.getAttribute('data-slot');
+        if (pkg === 'day') {
+          opt.disabled = (slotType === 'night');
+        } else if (pkg === 'night') {
+          opt.disabled = (slotType === 'day');
+        } else {
+          // Premium allows both day and night slots
+          opt.disabled = false;
+        }
+      });
+
+      // Ensure a valid enabled option is currently selected
+      if (pkg === 'night') {
+        timeSelect.value = '6:00 PM - 8:00 PM';
+        helperBadge.textContent = dict.helper_night;
+      } else if (pkg === 'day') {
+        if (timeSelect.value === '6:00 PM - 8:00 PM') {
+          timeSelect.value = '8:30 AM - 10:30 AM';
+        }
+        helperBadge.textContent = dict.helper_day;
+      } else {
+        helperBadge.textContent = dict.helper_premium;
+      }
+    }
+
+    function updatePriceSummary() {
+      const pkgKey = document.getElementById('package-select').value;
+      const timeVal = document.getElementById('time-select').value;
+      const guestsRaw = parseInt(document.getElementById('guests-input').value, 10);
+      const guests = isNaN(guestsRaw) ? 1 : Math.min(10, Math.max(1, guestsRaw));
+
+      const dict = translations[currentLang];
+      const pkgInfo = PACKAGE_PRICES[pkgKey];
+
+      const totalCrc = pkgInfo.crc * guests;
+      const totalUsd = pkgInfo.usd * guests;
+
+      document.getElementById('summary-pkg-pill').textContent = currentLang === 'es' ? pkgInfo.name_es : pkgInfo.name_en;
+      document.getElementById('summary-total-crc').textContent = `₡${totalCrc.toLocaleString('es-CR')}`;
+      document.getElementById('summary-total-usd').textContent = currentLang === 'es'
+        ? `Aprox. $${totalUsd} USD en total`
+        : `Approx. $${totalUsd} USD total`;
+
+      const guestWord = guests === 1 ? dict.person_singular : dict.person_plural;
+      document.getElementById('summary-guests-count').textContent = `${guests} ${guestWord}`;
+
+      const mealNoteEl = document.getElementById('summary-meal-note');
+      if (pkgKey === 'premium') {
+        mealNoteEl.textContent = (timeVal === '6:00 PM - 8:00 PM') ? dict.meal_note_dinner : dict.meal_note_lunch;
+      } else {
+        mealNoteEl.textContent = dict.meal_note_walk_only;
+      }
+    }
+
+    // =========================================================================
+    // 7. WHATSAPP RESERVATION GENERATOR
+    // =========================================================================
+    function handleWhatsAppSubmit(e) {
+      e.preventDefault();
+
+      const dict = translations[currentLang];
+      const errorBox = document.getElementById('form-error');
+      const name = document.getElementById('guest-name').value.trim();
+      const pkgKey = document.getElementById('package-select').value;
+      const dateVal = document.getElementById('booking-date').value;
+      const timeVal = document.getElementById('time-select').value;
+      const guests = parseInt(document.getElementById('guests-input').value, 10);
+
+      if (!name || !dateVal || isNaN(guests) || guests < 1 || guests > 10) {
+        errorBox.textContent = dict.error_missing;
+        errorBox.classList.remove('hidden');
+        return;
+      }
+      errorBox.classList.add('hidden');
+
+      const pkgInfo = PACKAGE_PRICES[pkgKey];
+      const totalCrc = (pkgInfo.crc * guests).toLocaleString('es-CR');
+      const totalUsd = pkgInfo.usd * guests;
+
+      let mealDetailEs = '';
+      let mealDetailEn = '';
+      if (pkgKey === 'premium') {
+        const isNight = (timeVal === '6:00 PM - 8:00 PM');
+        mealDetailEs = isNight ? ' (Caminata Nocturna + Cena)' : ' (Caminata Diurna + Almuerzo)';
+        mealDetailEn = isNight ? ' (Night Walk + Dinner)' : ' (Day Walk + Lunch)';
+      }
+
+      let message = '';
+      if (currentLang === 'es') {
+        message =
+          `🌿 *Hola La Finca, me gustaría realizar una reserva:*\n\n` +
+          `👤 *Nombre:* ${name}\n` +
+          `🎟️ *Paquete:* ${pkgInfo.name_es}${mealDetailEs}\n` +
+          `📅 *Fecha:* ${dateVal}\n` +
+          `⏰ *Horario:* ${timeVal}\n` +
+          `👥 *Cantidad de personas:* ${guests}\n` +
+          `💰 *Total estimado:* ₡${totalCrc} (aprox. $${totalUsd} USD)\n\n` +
+          `¿Me podrían confirmar disponibilidad? ¡Muchas gracias!`;
+      } else {
+        message =
+          `🌿 *Hello La Finca, I would like to book a guided walk:*\n\n` +
+          `👤 *Name:* ${name}\n` +
+          `🎟️ *Package:* ${pkgInfo.name_en}${mealDetailEn}\n` +
+          `📅 *Date:* ${dateVal}\n` +
+          `⏰ *Time Slot:* ${timeVal}\n` +
+          `👥 *Number of guests:* ${guests}\n` +
+          `💰 *Estimated Total:* ₡${totalCrc} (approx. $${totalUsd} USD)\n\n` +
+          `Could you please confirm availability? Thank you!`;
+      }
+
+      const whatsappUrl = `https://wa.me/50688810953?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    }
+  </script>
+</body>
+</html>
